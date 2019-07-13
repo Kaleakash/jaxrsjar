@@ -1,0 +1,15 @@
+.MAKE_VERSION:	VERSION-1.0
+clean:
+	rm -f testProC  test.o  test.ln   test.lis   test.c test.i   .make.state.lock
+.BUILT_LAST_MAKE_RUN:
+prog:	/lib/64/libuutil.so.1 /lib/64/libdoor.so.1 /lib/64/libmd.so.1 /lib/64/libscf.so.1 /lib/64/libmp.so.2 /opt/oracle/home/lib/libnnz11.so /lib/64/libdl.so.1 /lib/64/libthread.so /lib/64/libm.so /lib/64/libaio.so /lib/64/libc.so /lib/64/librt.so /usr/lib/64/libsched.so /opt/isis/solaris/qa_test/solaris/lib/libdl.a /usr/ccs/lib/sparcv9/libgen.so /lib/64/libresolv.so /lib/64/libsocket.so /lib/64/libnsl.so /lib/64/libkstat.so /opt/oracle/home/lib/libntns11.a
+.BUILT_LAST_MAKE_RUN:
+prog:	/opt/oracle/home/lib/libntcps11.a /opt/oracle/home/lib/libntcp11.a /opt/oracle/home/lib/libnnis11.a /opt/oracle/home/lib/libnsslb11.a /opt/oracle/home/lib/libldapclnt11.a /opt/oracle/home/lib/libnldap11.a /opt/oracle/home/lib/libnus11.a /opt/oracle/home/lib/libnhost11.a /opt/oracle/home/lib/libnbeq11.a /opt/lib/libclntsh-11-64.so 
+	/opt/SUNWspro/bin/cc -V -xc99=all -m64 -D_LP64 -g -m64 -DSOLARIS2 -DBUG_FIX -DBUG_FIX_PULL2 -DBUG_FIX_PULL4 -DBUG_FIX_PULL5 -D_FUNC_PROTO -I/opt/isis/solaris/qa_test/solaris/include  -o prog -L/opt/oracle/home/precomp/lib/ -L/opt/oracle/home/lib -o testProC test.o -lclntsh-11-64 `cat /opt/oracle/home/lib/ldflags`   `cat /opt/oracle/home/lib/sysliblist` -R/opt/oracle/home/lib -laio  -lposix4  -lm  -lthread  
+.BUILT_LAST_MAKE_RUN:
+test.o:	/usr/include/stdio.h /usr/include/sys/feature_tests.h /usr/include/sys/ccompile.h /usr/include/sys/isa_defs.h /usr/include/iso/stdio_iso.h /usr/include/sys/va_list.h /usr/include/stdio_tag.h /usr/include/stdio_impl.h /usr/include/iso/stdio_c99.h /usr/include/string.h /usr/include/iso/string_iso.h 
+	rm -f test.c test.i
+	cp test.pc test.c
+	/opt/SUNWspro/bin/cc -V -xc99=all -m64 -D_LP64 -g -m64 -DSOLARIS2 -DBUG_FIX -DBUG_FIX_PULL2 -DBUG_FIX_PULL4 -DBUG_FIX_PULL5 -D_FUNC_PROTO -I/opt/isis/solaris/qa_test/solaris/include     -P test.c
+	/opt/oracle/home/bin/proc ltype=short code=ANSI_C sqlcheck=full userid=/ mode=oracle dbms=v7  maxopencursors=255 ireclen=10000 oreclen=600 define=_LP64  unsafe_null=yes release_cursor=no hold_cursor=no unsafe_null=yes sqlcheck=full  userid=lksptw/naeem@D_ISIS iname=test.i
+	/opt/SUNWspro/bin/cc -V -xc99=all -m64 -D_LP64 -g  -c -xc99=all -m64 -D_LP64 -g -m64 -DSOLARIS2 -DBUG_FIX -DBUG_FIX_PULL2 -DBUG_FIX_PULL4 -DBUG_FIX_PULL5 -D_FUNC_PROTO -I/opt/isis/solaris/qa_test/solaris/include test.c

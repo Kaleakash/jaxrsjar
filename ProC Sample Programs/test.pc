@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+
+#define STR_LENGTH 100 
+exec sql include sqlca.h;
+ 
+int main()
+{
+
+  char  uid[250];
+  char p_curr_date                             [STR_LENGTH];
+  EXEC SQL VAR p_curr_date  IS STRING          (STR_LENGTH);
+  char p_curr_date_with_time                   [STR_LENGTH];
+  EXEC SQL VAR p_curr_date_with_time  IS STRING(STR_LENGTH);
+  char p_curr_time                             [STR_LENGTH];
+  EXEC SQL VAR p_curr_time  IS STRING          (STR_LENGTH);
+
+  char p_dbname                                [STR_LENGTH];
+  EXEC SQL VAR p_dbname  IS STRING             (STR_LENGTH);
+  char p_usr_name                              [STR_LENGTH];
+  EXEC SQL VAR p_usr_name  IS STRING           (STR_LENGTH);
+  
+  
+  exec sql whenever sqlerror goto sqlerror;
+  exec sql whenever not found goto sqlerror;
+ 
+  //strcpy(uid,"TRAIN35/chluwi9clu@//is-zinvdbqat2/TESTZ_PRIMARY");
+    strcpy(uid,"TRAIN20/welcome@//is-zinvdbqat2/TESTZ_PRIMARY");
+//  strcpy(uid,"lksptw/naeem@D_ISIS");
+ /* printf("Enter oracle id and password as id/pwd: ");
+  gets(uid);
+  */
+  exec sql connect :uid;
+  if(sqlca.sqlcode)
+    {
+      printf("Error during commit, commit not completed.\n");
+      printf("   Oracle error %d.\n", sqlca.sqlcode);
+      printf("   %s\n", sqlca.sqlerrm.sqlerrmc);
+      return ;
+    }
+
+    EXEC SQL SELECT TO_CHAR(SYSDATE,'DD-MON-RR'), 
+                    TO_CHAR(SYSDATE,'HH24:MI:SS'), 
+                    TO_CHAR(SYSDATE,'DD-MON-RR HH24:MI:SS')
+        INTO :p_curr_date, :p_curr_time, :p_curr_date_with_time
+      FROM DUAL;
+
+      
+	     EXEC SQL select sys_context('userenv','instance_name')  , user
+					         INTO :p_dbname, :p_usr_name
+								      from dual;
+		  
+    printf("------------------------------------\n");
+    printf("\n Connected Database is [%s]\n", p_dbname);
+    printf("\n Connected User is [%s]\n", p_usr_name);
+    printf("\n Current Date is [%s]\n", p_curr_date);
+    printf("\n Current Date is [%s]\n", p_curr_date);
+    printf("\n Current Time is [%s]\n", p_curr_time);
+    printf("\n Current Date& Time is [%s]\n", p_curr_date_with_time);
+    printf("------------------------------------\n");
+  return 0;
+sqlerror:
+  printf("\nSQL ERROR:\n%.70s (%d)\n",
+    sqlca.sqlerrm.sqlerrmc, -sqlca.sqlcode);
+  exec sql rollback work release;
+  return(1);
+}

@@ -1,0 +1,6 @@
+id name salary 
+1 Raj 12000
+2 Seeta 14000
+3 Ramesh 16000
+4 Ajay 18000
+
