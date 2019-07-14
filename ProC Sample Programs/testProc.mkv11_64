@@ -1,9 +1,0 @@
-SOURCES.pc=test.pc
-ILIBS= test.o
-PROGRAM= testProC
-CFLAGS=-xc99=all -m64 -D_LP64 -g
-PCCFLAGS=unsafe_null=yes sqlcheck=full  userid=lksptw/naeem@D_ISIS
-include /usr/local/bin/guts.mk
-
-#make-proc11-64bit -f testProc.mkv11_64 clean
-#make-proc11-64bit -f testProc.mkv11_64
